@@ -1,0 +1,48 @@
+# Backend configuration
+BACKEND_HOST=localhost
+BACKEND_PORT=8204
+
+# Temp file path (absolute path)
+# Temporary file path for storing intermediate results. No need to change
+TMP_FILE_PATH=/tmp
+
+# POLLING_ATTEMPTS
+# Number of attempts to poll for results
+POLLING_ATTEMPTS=240
+# Interval in seconds between polling attempts
+POLL_INTERVAL_SECONDS=5
+
+# OpenAI
+# Change this to your OpenAI API key
+OPENAI_API_KEY=your_openai_api_key_here
+# If you are using LLM, change this to your LLM API URL
+OPENAI_BASE_URL=https://api.openai.com/v1
+# Model name for OpenAI API. Change this to your desired model name
+OPENAI_MODEL_NAME=gpt-4.1-mini 
+
+# QAnything
+QANYTHING_SERVER_URL=http://localhost:8777
+# no need to change
+QANYTHING_USER_ID=deep_search_user
+
+# Firecrawl
+# If you are using local Firecrawl, change this to your local Firecrawl API URL
+FIRECRAWL_API_URL=https://api.firecrawl.dev
+# Change this to your Firecrawl API key
+FIRECRAWL_API_KEY=you_firecrawl_api_key_here
+
+# DeepSearch Agent configuration
+# Maximum number of iterations for the agent
+MAX_ITER=3
+# Maximum number of chunks returned by QAnything to rerank
+MAX_QANYTHING_CHUNKS_TO_RERANK=5
+# Maximum number of chunks returned by QAnything from Firecrawl context
+MAX_FIRECRAWL_QANYTHING_CHUNKS_TO_PROCESS=5
+# if QAnything returns less than this number of results, use web search
+MIN_QANYTHING_RESULTS_BEFORE_WEB_SEARCH=1
+# Maximum number of chunks to summarize
+MAX_CHUNKS_FOR_SUMMARY=20
+
+# Output language
+# Just choose one of the following: en, zh (English, Chinese)
+OUTPUT_LANG=zh
