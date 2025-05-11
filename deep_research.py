@@ -235,7 +235,7 @@ class DeepSearch(RAGAgent):
     def _generate_sub_queries(self, original_query: str) -> Tuple[List[str], int]:
         chat_response = self.llm.chat(
             messages=[
-                {"role": "user", "content": SUB_QUERY_PROMPT.format(original_query=original_query) + " /no_think"}
+                {"role": "user", "content": SUB_QUERY_PROMPT.format(original_query=original_query)}
             ]
         )
         response_content = self.llm.remove_think(chat_response.content)
@@ -277,7 +277,7 @@ class DeepSearch(RAGAgent):
                         "role": "user",
                         "content": RERANK_PROMPT.format(
                             query=[query] + sub_queries_context,
-                            retrieved_chunk=f"<chunk>{doc.get('content', '')}</chunk>" + " /no_think",
+                            retrieved_chunk=f"<chunk>{doc.get('content', '')}</chunk>",
                         ),
                     }
                 ]
@@ -464,7 +464,7 @@ class DeepSearch(RAGAgent):
             mini_questions=all_sub_queries,
             mini_chunk_str=mini_chunk_str,
         )
-        chat_response = self.llm.chat([{"role": "user", "content": reflect_prompt_content + " /no_think"}])
+        chat_response = self.llm.chat([{"role": "user", "content": reflect_prompt_content}])
         response_content = self.llm.remove_think(chat_response.content)
         try:
             return self.llm.literal_eval(response_content), chat_response.total_tokens
@@ -782,7 +782,7 @@ class DeepSearch(RAGAgent):
             mini_chunk_str=formatted_chunks_for_summary,
         )
 
-        chat_response = self.llm.chat([{"role": "user", "content": summary_prompt_content + " /no_think"}])
+        chat_response = self.llm.chat([{"role": "user", "content": summary_prompt_content}])
 
         final_answer = self.llm.remove_think(chat_response.content)
         log.color_print("\n==== FINAL ANSWER ====\n")
