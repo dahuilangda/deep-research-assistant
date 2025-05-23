@@ -34,6 +34,8 @@ FIRECRAWL_API_KEY=you_firecrawl_api_key_here
 # DeepSearch Agent configuration
 # Maximum number of iterations for the agent
 MAX_ITER=3
+# Maximum number of web search results to process
+MAX_WEB_SEARCH_RESULTS=5
 # Maximum number of chunks returned by QAnything to rerank
 MAX_QANYTHING_CHUNKS_TO_RERANK=5
 # Maximum number of chunks returned by QAnything from Firecrawl context

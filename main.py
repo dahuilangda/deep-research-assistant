@@ -127,6 +127,7 @@ def run_deep_search_task(
     max_q_rerank: int = int(os.getenv("MAX_QANYTHING_CHUNKS_TO_RERANK", 5)),
     max_fc_qa_proc: int = int(os.getenv("MAX_FIRECRAWL_QANYTHING_CHUNKS_TO_PROCESS", 5)),
     min_qa_web: int = int(os.getenv("MIN_QANYTHING_RESULTS_BEFORE_WEB_SEARCH", 1)),
+    max_web_search_results: int = int(os.getenv("MAX_WEB_SEARCH_RESULTS", 5)),
     max_summary_chunks: int = int(os.getenv("MAX_CHUNKS_FOR_SUMMARY", 20))
 ):
     job_results[job_id]["status"] = "processing"
@@ -153,6 +154,7 @@ def run_deep_search_task(
             files=files if files else [], # Ensure it's a list
             urls=urls if urls else [],   # Ensure it's a list
             search_web=search_web_flag,  # This controls if web search is performed
+            max_web_search_results=max_web_search_results,
             # qanything_upload_num_split_pdf=0, # Default
             # qanything_upload_chunk_size=800   # Default
         )

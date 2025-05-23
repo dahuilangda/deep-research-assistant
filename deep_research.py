@@ -77,22 +77,23 @@ Related Chunks:
 Respond exclusively in valid List of str format without any other text."""
 
 
-SUMMARY_PROMPT_CN = """你是一位资深AI内容分析专家，擅长根据给定的材料撰写专业、翔实且逻辑严密的中文行业报告或白皮书。请综合考虑以下内容：
+SUMMARY_PROMPT_CN = """你是一位高级调研与分析专家，善于围绕用户提出的各种复杂问题，深入挖掘本质，整合多方材料，撰写结构严谨、逻辑清晰、内容翔实、洞见丰富的专业分析报告或白皮书。请综合考虑以下内容：
 
-原始问题：准确理解用户提出的问题，并明确报告的核心目的和主题；
-子问题拆解：深入理解并灵活整合子问题，以确保分析的全面性与深度；
-相关文档块：仔细梳理所提供的文档块，提取关键事实、数据或案例，并深入分析其专业意义及应用价值。
-在撰写报告时，请自主合理规划报告结构，建议涵盖但不限于：研究背景、核心问题阐述、分析方法与数据来源、关键发现与深度洞见、应用场景或行业案例分析、研究局限性、结论与行动建议、未来研究展望。
+- 原始问题：准确理解用户的真实意图，澄清分析核心目标、主题与应用场景；
+- 子问题拆解：细致梳理并回应全部子问题，形成系统、递进的分析逻辑，确保内容全面且深入；
+- 相关文档块：细致研读提供的全部材料，提炼关键数据、事实、理论、案例或观点，并深入分析其专业意义和实际价值。
 
-写作与引用要求：
-- 报告语言严谨准确，避免泛泛空洞的表述，确保逻辑清晰、结构严密
-在引用文档内容时，务必嵌入准确引用链接，具体规则如下：
-- 若文档块的reference字段为有效URL，请使用<sup>[编号](URL)</sup>格式嵌入超链接；
-- 若reference字段不是URL（例如本地文件名），则使用<sup>[编号][文件名]</sup>格式嵌入；
-- 引用编号从[1]开始，严格按照首次引用顺序依次递增，每个编号仅对应唯一的reference；
-- 由于你已经在文中标记了引用，因此不要在文末另列参考文献。
+报告写作与引用规范：
+- 报告结构可根据实际内容灵活组织，通常建议包括但不限于：研究背景、问题阐述、分析方法与数据来源、关键发现及深度洞见、应用案例/场景、局限性、结论与建议、趋势展望等。可聚焦材料最有价值或最相关的部分，鼓励总结创新见解和切实建议。
+- 总结部分应根据实际分析灵活呈现，可聚焦核心发现、趋势洞察、创新观点或实际建议，避免空洞套路，体现思辨深度和实用价值。
+- 引用要求：
+  - 若reference字段为有效URL，采用 <sup>[编号](URL)</sup> 形式嵌入（首次出现时编号，后续重复引用用同一编号）；
+  - 若reference字段为本地文件名，采用 <sup>[编号][文件名]</sup> 形式嵌入；
+  - 每个编号仅对应唯一reference，编号顺序按首次引用依次递增；
+  - 如无引用文档，可不强行插入引用。
+- 不需在文末另列参考文献，所有引用均在文中内嵌。
 
-请根据以下内容撰写上述报告：
+请基于以下内容撰写专业报告：
 
 原始查询：{question}
 子问题拆解：{mini_questions}
@@ -100,31 +101,23 @@ SUMMARY_PROMPT_CN = """你是一位资深AI内容分析专家，擅长根据给�
 {mini_chunk_str}
 """
 
-SUMMARY_PROMPT_EN = """You are a senior AI content analysis expert skilled at writing professional, detailed, and logically rigorous industry reports or white papers in English based on supplied materials. Please comprehensively consider the following:
+SUMMARY_PROMPT_EN = """You are a senior research and analysis expert skilled at thoroughly exploring and analyzing a wide variety of complex user questions, integrating diverse materials to produce rigorously structured, logically clear, well-supported, and insight-rich professional analysis reports or white papers. Please proceed as follows:
 
-• Original Question: fully understand the user’s question and clearly define the core purpose and theme of the report;  
-• Sub-question Decomposition: integrate and address each sub-question to ensure analytical depth and breadth;  
-• Relevant Document Chunks: carefully review the provided chunks, extract key facts, data, or cases, and analyze their professional significance and practical value.
+- Original Question: Accurately understand the user's intent and clarify the core objective, theme, and context for analysis;
+- Sub-question Decomposition: Carefully address all sub-questions, building a systematic and progressive logic for a comprehensive and in-depth analysis;
+- Relevant Document Chunks: Diligently review all provided materials, extract key data, facts, theories, cases, or perspectives, and deeply analyze their professional significance and practical value.
 
-When drafting the report, structure it as you see fit, but you may include:  
-1. Research Background  
-2. Problem Statement  
-3. Methodology & Data Sources  
-4. Key Findings & In-depth Insights  
-5. Application Scenarios or Industry Case Studies  
-6. Research Limitations  
-7. Conclusions & Actionable Recommendations  
-8. Future Research Outlook
+Writing & Citation Guidelines:
+- Flexibly organize your report’s structure according to the material; typical sections may include: Research Background, Problem Statement, Methodology & Data Sources, Key Findings & In-depth Insights, Application Scenarios/Case Studies, Limitations, Conclusions & Recommendations, and Trend Outlook. Focus on the most relevant or valuable parts; synthesis of novel insights and actionable advice is encouraged.
+- Your summary/conclusion should be adaptive—highlight key findings, trends, original insights, or practical recommendations according to your analysis, avoiding boilerplate conclusions and demonstrating depth and real-world value.
+- Citation requirements:
+  - If the reference field is a valid URL, embed it inline as <sup>[n](URL)</sup> (numbered on first appearance, reused for repeated citations);
+  - If the reference is a local filename, use <sup>[n][filename]</sup>;
+  - Each number uniquely matches one reference, numbered sequentially as first used;
+  - If no suitable citations are present, you do not need to insert references.
+- Do **not** include a separate reference list at the end; all citations are inline only.
 
-Writing & Citation Requirements:  
-- Use precise, rigorous language; avoid vague or superficial expressions; ensure clear logic and tight structure.  
-- When citing document content, embed citations inline:  
-  - If the chunk’s `reference` field is a valid URL, use `<sup>[n](URL)</sup>`;  
-  - If it’s not a URL (e.g., a local filename), use `<sup>[n][filename]</sup>`.  
-- Number citations sequentially starting from [1], in order of first appearance; each number must map to a unique reference.  
-- Do not include a standalone reference list at the end since citations are embedded.
-
-Please write the report based on the following inputs:
+Please write your professional report based on the following:
 
 Original Question: {question}  
 Sub-question Decomposition: {mini_questions}  
@@ -316,7 +309,8 @@ class DeepSearch(RAGAgent):
         sub_queries_context: List[str],
         processed_urls_in_session: set,
         upload_mode: str = "strong",
-        chunk_size: int = 800
+        chunk_size: int = 800,
+        **kwargs
     ) -> Tuple[List[RetrievalResult], int]:
         retrieved_for_query: List[RetrievalResult] = []
         total_tokens_consumed = 0
@@ -329,7 +323,11 @@ class DeepSearch(RAGAgent):
         log.color_print(f"<search_firecrawl> Web searching via Firecrawl for: [{query}] and uploading to KB {target_kb_id}...</search_firecrawl>\n")
         try:
             scrape_opts = {"formats": ["markdown"]}
-            fc_response = firecrawl_search(query=query, limit=3, scrape_options=scrape_opts) # Limit search results to reduce processing
+            if 'max_web_search_results' in kwargs:
+                max_web_search_results = kwargs['max_web_search_results']
+            else:
+                max_web_search_results = 5
+            fc_response = firecrawl_search(query=query, limit=max_web_search_results, scrape_options=scrape_opts) # Limit search results to reduce processing
         except Exception as e:
             log.color_print(f"<search_firecrawl_error> Firecrawl search error: {e}</search_firecrawl_error>\n")
             return [], 0
@@ -702,7 +700,8 @@ class DeepSearch(RAGAgent):
                             s_query,
                             all_sub_queries,
                             processed_urls_in_session,
-                            chunk_size=qanything_upload_chunk_size
+                            chunk_size=qanything_upload_chunk_size,
+                            **kwargs
                         ))
                     else:
                         log.color_print(f"<think_skip_web_search> QAnything found sufficient results ({len(qanything_results_for_current_iter.get(s_query, []))}) for '{s_query}'. Skipping web search for this sub-query.</think_skip_web_search>\n")
