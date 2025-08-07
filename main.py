@@ -128,7 +128,8 @@ def run_deep_search_task(
     max_fc_qa_proc: int = int(os.getenv("MAX_FIRECRAWL_QANYTHING_CHUNKS_TO_PROCESS", 5)),
     min_qa_web: int = int(os.getenv("MIN_QANYTHING_RESULTS_BEFORE_WEB_SEARCH", 1)),
     max_web_search_results: int = int(os.getenv("MAX_WEB_SEARCH_RESULTS", 5)),
-    max_summary_chunks: int = int(os.getenv("MAX_CHUNKS_FOR_SUMMARY", 20))
+    max_summary_chunks: int = int(os.getenv("MAX_CHUNKS_FOR_SUMMARY", 20)),
+    firecrawl_api_url: str = os.getenv('FIRECRAWL_API_URL')
 ):
     job_results[job_id]["status"] = "processing"
     try:
@@ -141,7 +142,7 @@ def run_deep_search_task(
             qanything_kb_ids=[kb_id] if kb_id else [], # Must be a list
             max_iter=max_iter_val,
             search_internet=False, # Agent's default, will be overridden by query's search_web if needed
-            firecrawl_api_url=os.getenv('FIRECRAWL_API_URL'),
+            firecrawl_api_url=firecrawl_api_url,
             max_qanything_chunks_to_rerank=max_q_rerank,
             max_firecrawl_qanything_chunks_to_process=max_fc_qa_proc,
             min_qanything_results_before_web_search=min_qa_web,
